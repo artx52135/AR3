@@ -36,22 +36,26 @@ public class CarManager : MonoBehaviour
         {
             if (Car != null)
             {
-                // Если машина уже есть - удаляем её
                 Destroy(Car.gameObject);
                 Car = null;
-                //DrivingSurfaceManager.UnlockPlane(); // Разблокируем плоскость, если нужно
+                //DrivingSurfaceManager.UnlockPlane(); 
             }
-            else 
+            else
             {
                 // Spawn our car at the reticle location.
                 var obj = GameObject.Instantiate(CarPrefab);
                 Car = obj.GetComponent<CarBehaviour>();
                 Car.Reticle = Reticle;
                 Car.transform.position = Reticle.transform.position;
+
                 DrivingSurfaceManager.LockPlane(Reticle.CurrentPlane);
             }
-
         }
+    }
+
+    private void OnDestroy()
+    {
+
     }
 
     private bool WasTapped()

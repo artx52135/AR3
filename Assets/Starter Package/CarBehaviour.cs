@@ -40,11 +40,17 @@ public class CarBehaviour : MonoBehaviour
             Vector3.MoveTowards(transform.position, trackingPosition, Speed * Time.deltaTime);
     }
 
+    // Столкновение
     private void OnTriggerEnter(Collider other)
     {
         var Package = other.GetComponent<PackageBehaviour>();
         if (Package != null)
         {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AddPackage();
+            }
+
             Destroy(other.gameObject);
         }
     }
